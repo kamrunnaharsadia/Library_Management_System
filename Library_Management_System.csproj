@@ -59,11 +59,11 @@
     <Compile Include="Forms\Books\BookManagementForm.Designer.cs">
       <DependentUpon>BookManagementForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Books\bookSearchForm.cs">
+    <Compile Include="Forms\Books\BookSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Books\bookSearchForm.Designer.cs">
-      <DependentUpon>bookSearchForm.cs</DependentUpon>
+    <Compile Include="Forms\Books\BookSearchForm.Designer.cs">
+      <DependentUpon>BookSearchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Borrowing\BorrowingHistoryForm.cs">
       <SubType>Form</SubType>
@@ -172,8 +172,8 @@
     <EmbeddedResource Include="Forms\Books\BookManagementForm.resx">
       <DependentUpon>BookManagementForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Books\bookSearchForm.resx">
-      <DependentUpon>bookSearchForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Books\BookSearchForm.resx">
+      <DependentUpon>BookSearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Borrowing\BorrowingHistoryForm.resx">
       <DependentUpon>BorrowingHistoryForm.cs</DependentUpon>
@@ -226,9 +226,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />

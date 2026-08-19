@@ -16,9 +16,10 @@ namespace Library_Management_System.Forms
     {
         private readonly DashboardService _dashboardService;
         private readonly BorrowingService _borrowingService;
-        public AdminDashboardForm()
+        public AdminDashboardForm(string name)
         {
             InitializeComponent();
+            label18.Text = name;
             _dashboardService = new DashboardService(new DashboardRepository());
             _borrowingService = new BorrowingService(
                 new BorrowingRepository(), new BookRepository(), new MemberRepository(), new FineRepository());
