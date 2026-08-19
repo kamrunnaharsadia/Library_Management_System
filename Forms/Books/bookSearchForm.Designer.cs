@@ -1,6 +1,6 @@
 ﻿namespace Library_Management_System.Forms
 {
-    partial class bookSearchForm
+    partial class BookSearchForm
     {
         /// <summary>
         /// Required designer variable.

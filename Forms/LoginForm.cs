@@ -37,13 +37,13 @@ namespace Library_Management_System.Forms
             switch (user.RoleName)
             {
                 case "Admin":
-                    dashboard = new AdminDashboardForm();
+                    dashboard = new AdminDashboardForm(user.FullName);
                     break;
                 case "Librarian":
-                    dashboard = new LibrarianDashboardForm();
+                    dashboard = new LibrarianDashboardForm(user.FullName);
                     break;
                 case "Student":
-                    dashboard = new StudentDashboardForm();
+                    dashboard = new StudentDashboardForm(user.FullName);
                     break;
                 default:
                     MessageBox.Show("Unknown role. Please contact the administrator.");
