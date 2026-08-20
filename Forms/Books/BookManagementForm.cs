@@ -29,11 +29,7 @@ namespace Library_Management_System.Forms
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            comboBox1.DataSource = _categoryService.GetAllCategories();
-            comboBox1.DisplayMember = "CategoryName";
-            comboBox1.ValueMember = "CategoryId";
 
-            LoadGrid(new BookFilter());
         }
 
         private void LoadGrid(BookFilter filter)
@@ -58,7 +54,7 @@ namespace Library_Management_System.Forms
             textBox3.Text = book.Author;
             textBox4.Text = book.Publisher;
             comboBox1.SelectedValue = book.CategoryId;
-            numericUpDown1.Value = book.PublicationYear;
+            textBox6.Text = book.PublicationYear.ToString();
             numericUpDown2.Value = book.Quantity;
             textBox8.Text = book.ShelfLocation;
         }
@@ -85,7 +81,7 @@ namespace Library_Management_System.Forms
             Author = textBox3.Text.Trim(),
             Publisher = textBox4.Text.Trim(),
             CategoryId = (int)(comboBox1.SelectedValue ?? 0),
-            PublicationYear = (int)numericUpDown1.Value,
+            PublicationYear = Convert.ToInt32(textBox6.Text),
             Quantity = (int)numericUpDown2.Value,
             ShelfLocation = textBox8.Text.Trim(),
             Status = "Active"
@@ -175,8 +171,22 @@ namespace Library_Management_System.Forms
         {
             _selectedBookId = 0;
             textBox1.Clear(); textBox2.Clear(); textBox3.Clear(); textBox4.Clear(); textBox8.Clear();
-            numericUpDown1.Value = DateTime.Now.Year;
+            textBox6.Text = DateTime.Now.Year.ToString();
             numericUpDown2.Value = 1;
+        }
+
+        private void BookManagementForm_Load(object sender, EventArgs e)
+        {
+            comboBox1.DataSource = _categoryService.GetAllCategories();
+            comboBox1.DisplayMember = "CategoryName";
+            comboBox1.ValueMember = "CategoryId";
+
+            LoadGrid(new BookFilter());
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
