@@ -49,7 +49,7 @@ namespace Library_Management_System.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             BookManagementForm b = new BookManagementForm();
-            b.ShowDialog();
+            b.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
