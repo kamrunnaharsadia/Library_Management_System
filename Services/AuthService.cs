@@ -59,7 +59,7 @@ namespace LibraryManagementSystem.Services
             var user = _userRepository.GetById(userId);
             if (user == null) throw new ServiceException("User not found.");
 
-            if (!string.Equals(HashPassword(currentPassword), user.Password, StringComparison.Ordinal))
+            if (!string.Equals(currentPassword, user.Password, StringComparison.Ordinal))
                 throw new ServiceException("Current password is incorrect.");
 
             if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
@@ -68,7 +68,7 @@ namespace LibraryManagementSystem.Services
             if (newPassword != confirmPassword)
                 throw new ServiceException("New password and confirmation do not match.");
 
-            _userRepository.UpdatePassword(userId, HashPassword(newPassword));
+            _userRepository.UpdatePassword(userId, newPassword);
         }
     }
 }
