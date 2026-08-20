@@ -47,5 +47,10 @@ namespace Library_Management_System.Forms
                 AvailableOnly = checkBox1.Checked
             });
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

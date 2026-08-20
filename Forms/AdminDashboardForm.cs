@@ -85,7 +85,9 @@ namespace Library_Management_System.Forms
         private void button9_Click(object sender, EventArgs e)
         {
             new AuthService(new UserRepository()).Logout();
-            this.Close();
+            LoginForm loginForm = new LoginForm();
+            this.Dispose();
+            loginForm.ShowDialog();
         }
     }
 }
