@@ -5,12 +5,6 @@ using LibraryManagementSystem.Repositories;
 
 namespace LibraryManagementSystem.Services
 {
-    /// <summary>
-    /// The heart of the system: issuing books, returning books, and turning
-    /// late returns into fines. Keeping this logic in one Service (instead of
-    /// inside the Form's button click) is what makes the rules easy to test
-    /// and explain.
-    /// </summary>
     public class BorrowingService
     {
         private readonly IBorrowingRepository _borrowingRepository;
@@ -36,13 +30,6 @@ namespace LibraryManagementSystem.Services
 
         public List<Borrowing> FindBorrowingHistory(BorrowingFilter filter) => _borrowingRepository.Find(filter ?? new BorrowingFilter());
 
-        /// <summary>
-        /// Issues a book to a member.
-        /// Rules enforced here:
-        ///   - book must exist and have at least 1 available copy
-        ///   - member must exist
-        ///   - due date cannot be before issue date
-        /// </summary>
         public int IssueBook(int bookId, int memberId, int issuedByUserId, DateTime issueDate, DateTime dueDate)
         {
             var book = _bookRepository.GetById(bookId);
@@ -69,19 +56,11 @@ namespace LibraryManagementSystem.Services
 
             int borrowingId = _borrowingRepository.Add(borrowing);
 
-            // Atomic, guarded decrement - AdjustAvailableQuantity throws if it
-            // would ever go negative (defends against a race condition where
-            // two librarians issue the last copy at the same moment).
             _bookRepository.AdjustAvailableQuantity(bookId, -1);
 
             return borrowingId;
         }
 
-        /// <summary>
-        /// Returns a book. If it's late, creates a Fine record using the
-        /// configured per-day rate (see AppConstants.FinePerOverdueDay).
-        /// Returns the fine amount (0 if returned on time).
-        /// </summary>
         public decimal ReturnBook(int borrowingId, DateTime returnDate)
         {
             var borrowing = _borrowingRepository.GetById(borrowingId);
@@ -109,11 +88,6 @@ namespace LibraryManagementSystem.Services
             return fineAmount;
         }
 
-        /// <summary>
-        /// Housekeeping job: flips any Active borrowing whose due date has
-        /// passed to "Overdue" status. Call this once when the Admin/Librarian
-        /// dashboard loads so the dashboard counts and grids stay accurate.
-        /// </summary>
         public int RefreshOverdueStatuses()
         {
             var overdue = _borrowingRepository.GetOverdueActive();
