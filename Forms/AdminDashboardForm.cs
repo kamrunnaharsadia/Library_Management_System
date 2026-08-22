@@ -27,17 +27,7 @@ namespace Library_Management_System.Forms
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            _borrowingService.RefreshOverdueStatuses();
 
-            var stats = _dashboardService.GetStats();
-            label7.Text = stats.TotalBooks.ToString();
-            label8.Text = stats.TotalMembers.ToString();
-            label10.Text = stats.TotalUsers.ToString();
-            label12.Text = stats.ActiveBorrowings.ToString();
-            label14.Text = stats.OverdueBooks.ToString();
-            label16.Text = stats.TotalUnpaidFines.ToString("C");
-
-            dataGridView1.DataSource = _borrowingService.GetActiveBorrowings();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -88,6 +78,30 @@ namespace Library_Management_System.Forms
             LoginForm loginForm = new LoginForm();
             this.Dispose();
             loginForm.ShowDialog();
+        }
+
+        private void AdminDashboardForm_Load(object sender, EventArgs e)
+        {
+            _borrowingService.RefreshOverdueStatuses();
+
+            var stats = _dashboardService.GetStats();
+            label7.Text = stats.TotalBooks.ToString();
+            label8.Text = stats.TotalMembers.ToString();
+            label10.Text = stats.TotalUsers.ToString();
+            label12.Text = stats.ActiveBorrowings.ToString();
+            label14.Text = stats.OverdueBooks.ToString();
+            label16.Text = stats.TotalUnpaidFines.ToString("C");
+
+            var data = _borrowingService.GetActiveBorrowings()
+                .Select(d => new
+                {
+                    Book = d.BookTitle,
+                    Student = d.StudentId,
+                    Issue = d.IssueDate,
+                    Due = d.DueDate,
+                    Status = d.Status
+                }).ToList();
+            dataGridView1.DataSource = data;
         }
     }
 }

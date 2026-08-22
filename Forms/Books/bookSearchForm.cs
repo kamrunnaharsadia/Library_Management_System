@@ -36,7 +36,20 @@ namespace Library_Management_System.Forms
 
             LoadGrid(new BookFilter());
         }
-        private void LoadGrid(BookFilter filter) => dataGridView1.DataSource = _bookService.FindBooks(filter);
+        private void LoadGrid(BookFilter filter)
+        {
+            var books = _bookService.FindBooks(filter)
+                .Select(book => new
+                {
+                    Title = book.Title,
+                    Author = book.Author,
+                    Category = book.CategoryName,
+                    Available = book.AvailableQuantity,
+                    Shelf = book.ShelfLocation,
+
+                }).ToList();
+            dataGridView1.DataSource = books;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {

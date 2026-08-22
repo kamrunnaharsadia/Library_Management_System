@@ -36,20 +36,7 @@ namespace Library_Management_System.Forms
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-            var member = _memberService.GetMemberByUserId(AuthService.CurrentUser.UserId);
-            if (member == null)
-            {
-                MessageBox.Show("No member profile is linked to this account. Please contact the librarian.",
-                    "Profile Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            _memberId = member.MemberId;
-
-            var activeBorrowings = _borrowingService.GetActiveBorrowingsForMember(_memberId);
-            label10.Text = activeBorrowings.Count.ToString();
-            label9.Text = _fineService.GetTotalUnpaidForMember(_memberId).ToString("C");
-
-            dataGridView1.DataSource = activeBorrowings;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,14 +52,14 @@ namespace Library_Management_System.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //BorrowingHistoryForm b = new BorrowingHistoryForm(_memberId);
-            //    b.ShowDialog();
+            BorrowingHistoryForm b = new BorrowingHistoryForm(_memberId);
+            b.ShowDialog();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            //FineManagementForm f = new FineManagementForm(_memberId);    
-            // f.ShowDialog();
+            FineManagementForm f = new FineManagementForm(_memberId);
+            f.ShowDialog();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -85,7 +72,28 @@ namespace Library_Management_System.Forms
 
         private void StudentDashboardForm_Load(object sender, EventArgs e)
         {
+            var member = _memberService.GetMemberByUserId(AuthService.CurrentUser.UserId);
+            if (member == null)
+            {
+                MessageBox.Show("No member profile is linked to this account. Please contact the librarian.",
+                    "Profile Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            _memberId = member.MemberId;
 
+            var activeBorrowings = _borrowingService.GetActiveBorrowingsForMember(_memberId)
+                .Select(d => new
+                {
+                    Book = d.BookTitle,
+                    Issue = d.IssueDate,
+                    Due = d.DueDate,
+                }).ToList();
+
+
+            label10.Text = activeBorrowings.Count.ToString();
+            label9.Text = _fineService.GetTotalUnpaidForMember(_memberId).ToString("C");
+
+            dataGridView1.DataSource = activeBorrowings;
         }
     }
 }

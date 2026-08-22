@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,7 +35,16 @@ namespace Library_Management_System.Forms
 
         private void LoadGrid(BookFilter filter)
         {
-            dataGridView1.DataSource = _bookService.FindBooks(filter);
+             var books = _bookService.FindBooks(filter)
+                .Select(book => new
+                {
+                    Title = book.Title,
+                    Author = book.Author,
+                    Category = book.CategoryName,
+                    Available = book.AvailableQuantity
+
+                }).ToList();
+            dataGridView1.DataSource = books;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -85,5 +85,10 @@ namespace Library_Management_System.Forms
         {
             LoadGrid();
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
