@@ -5,8 +5,8 @@ namespace LibraryManagementSystem.Repositories
 {
     public class FineFilter
     {
-        public string Keyword { get; set; }     // matches student name / student id
-        public string PaidStatus { get; set; }  // Unpaid / Paid
+        public string Keyword { get; set; }     
+        public string PaidStatus { get; set; } 
     }
 
     public interface IFineRepository

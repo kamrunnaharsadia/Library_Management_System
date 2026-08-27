@@ -42,8 +42,6 @@ namespace LibraryManagementSystem.Repositories
             }
         }
 
-        /// <summary>Builds a single parameterized query from whichever
-        /// filter fields were supplied - never string-concatenates user input.</summary>
         public List<Book> Find(BookFilter filter)
         {
             var list = new List<Book>();
@@ -144,11 +142,6 @@ namespace LibraryManagementSystem.Repositories
             }
         }
 
-        /// <summary>
-        /// Atomically increases/decreases AvailableQuantity (delta can be +1 or -1).
-        /// The WHERE clause guards against ever going negative, which doubles as a
-        /// safety net even if the calling Service layer already checked availability.
-        /// </summary>
         public void AdjustAvailableQuantity(int bookId, int delta)
         {
             using (var conn = DatabaseHelper.GetConnection())

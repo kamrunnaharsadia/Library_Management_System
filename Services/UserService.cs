@@ -5,7 +5,6 @@ using LibraryManagementSystem.Repositories;
 
 namespace LibraryManagementSystem.Services
 {
-    /// <summary>Business logic + validation for managing system users (Admin only screen).</summary>
     public class UserService
     {
         private readonly IUserRepository _userRepository;
@@ -28,7 +27,7 @@ namespace LibraryManagementSystem.Services
             if (_userRepository.UsernameExists(user.Username))
                 throw new ServiceException($"Username '{user.Username}' is already taken.");
 
-            user.Password = AuthService.HashPassword(plainPassword);
+            user.Password = plainPassword;
             user.Status = string.IsNullOrWhiteSpace(user.Status) ? "Active" : user.Status;
             return _userRepository.Add(user);
         }
@@ -45,7 +44,6 @@ namespace LibraryManagementSystem.Services
 
         public void DeleteUser(int userId)
         {
-            // Business rule: don't allow deleting yourself while logged in.
             if (AuthService.CurrentUser != null && AuthService.CurrentUser.UserId == userId)
                 throw new ServiceException("You cannot delete the account you are currently logged in with.");
 
