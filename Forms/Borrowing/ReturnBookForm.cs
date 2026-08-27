@@ -30,18 +30,20 @@ namespace Library_Management_System.Forms
         }
         private void LoadGrid()
         {
-            var activeBorrowings = _borrowingService.GetActiveBorrowings()
-               .Select(b => new
-              {
-                Book = b.BookTitle,
-                Student = b.StudentId,
-                IssueDate = b.IssueDate,
-                DueDate = b.DueDate,
-                Status = b.Status
-              })
-             .ToList();
-
+            var activeBorrowings = _borrowingService.GetActiveBorrowings();
             dataGridView1.DataSource = activeBorrowings;
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col.Name != "BookTitle" &&
+                    col.Name != "StudentId" &&
+                    col.Name != "IssueDate" &&
+                    col.Name != "DueDate" &&
+                    col.Name != "Status")
+                {
+                    col.Visible = false;
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

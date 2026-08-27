@@ -23,11 +23,7 @@ namespace LibraryManagementSystem.Services
 
         public Member GetMemberByUserId(int userId) => _memberRepository.GetByUserId(userId);
 
-        /// <summary>
-        /// Registers a brand-new student: creates the Users row (RoleId = Student)
-        /// AND the linked Members row in one operation, so a Member can never
-        /// exist without its User account.
-        /// </summary>
+
         public int RegisterMember(User user, Member member, string plainPassword, int studentRoleId)
         {
             if (string.IsNullOrWhiteSpace(user.FullName))
@@ -66,7 +62,6 @@ namespace LibraryManagementSystem.Services
 
         public void DeleteMember(int memberId)
         {
-            // Business rule: a member with an active loan must return it before removal.
             if (_memberRepository.HasActiveBorrowings(memberId))
                 throw new ServiceException("This member cannot be deleted while they have active borrowings.");
             _memberRepository.Delete(memberId);

@@ -37,17 +37,18 @@ namespace Library_Management_System.Forms
 
         private void LoadGrid(string keyword)
         {
-            var users = _userService.SearchUsers(keyword)
-                .Select( b =>  new
-                {
-                    Name = b.FullName,
-                    Username = b.Username,
-                    Role = b.RoleName,
-                    Status = b.Status
-                }
-                ).ToList();
-
+            var users = _userService.SearchUsers(keyword).ToList();
             dataGridView1.DataSource = users;
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col.Name != "FullName" &&
+                    col.Name != "Username" &&
+                    col.Name != "RoleName" &&
+                    col.Name != "Status")
+                {
+                    col.Visible = false;
+                }
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)

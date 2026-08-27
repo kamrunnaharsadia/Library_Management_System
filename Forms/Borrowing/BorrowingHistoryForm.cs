@@ -35,6 +35,8 @@ namespace Library_Management_System.Forms
         {
             bool isStudentView = _memberId.HasValue;
             textBox3.Visible = !isStudentView;
+            label3.Visible = !isStudentView;
+            Button1.Visible = !isStudentView;
             LoadGrid();
         }
 
