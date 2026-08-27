@@ -35,16 +35,20 @@ namespace Library_Management_System.Forms
 
         private void LoadGrid(BookFilter filter)
         {
-             var books = _bookService.FindBooks(filter)
-                .Select(book => new
-                {
-                    Title = book.Title,
-                    Author = book.Author,
-                    Category = book.CategoryName,
-                    Available = book.AvailableQuantity
-
-                }).ToList();
+            var books = _bookService.FindBooks(filter);
             dataGridView1.DataSource = books;
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col.Name != "Title" &&
+                    col.Name != "Author" &&
+                    col.Name != "CategoryName" &&
+                    col.Name != "AvailableQuantity" 
+                   )
+                {
+                    col.Visible = false;
+                }
+
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

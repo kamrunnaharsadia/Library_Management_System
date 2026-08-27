@@ -33,8 +33,9 @@ namespace Library_Management_System.Forms
         private void FineManagementForm_Load(object sender, EventArgs e)
         {
             bool isStudentView = _memberId.HasValue;
-            button2.Visible = !isStudentView;
+            button1.Visible = !isStudentView;
             textBox1.Visible = !isStudentView;
+            label2.Visible = !isStudentView;
 
             LoadGrid();
         }
