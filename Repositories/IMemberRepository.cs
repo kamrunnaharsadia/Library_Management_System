@@ -5,7 +5,7 @@ namespace LibraryManagementSystem.Repositories
 {
     public class MemberFilter
     {
-        public string Keyword { get; set; }   // matches StudentId / Name / Email
+        public string Keyword { get; set; }  
         public string Department { get; set; }
         public string Semester { get; set; }
         public string Status { get; set; }

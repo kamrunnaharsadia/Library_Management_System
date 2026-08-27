@@ -1,6 +1,5 @@
 namespace LibraryManagementSystem.Repositories
 {
-    /// <summary>Simple aggregate counts shown as the "cards" on every dashboard.</summary>
     public class DashboardStats
     {
         public int TotalBooks { get; set; }

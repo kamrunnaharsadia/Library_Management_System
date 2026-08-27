@@ -10,7 +10,7 @@ namespace LibraryManagementSystem.Models
         public string Author { get; set; }
         public string Publisher { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }  // populated by JOIN
+        public string CategoryName { get; set; }  
         public int PublicationYear { get; set; }
         public int Quantity { get; set; }
         public int AvailableQuantity { get; set; }

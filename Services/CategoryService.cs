@@ -36,8 +36,6 @@ namespace LibraryManagementSystem.Services
 
         public void DeleteCategory(int categoryId)
         {
-            // Business rule: a category currently used by books cannot be deleted -
-            // this keeps every Book pointing at a valid category (referential integrity).
             if (_categoryRepository.IsInUseByBooks(categoryId))
                 throw new ServiceException("This category cannot be deleted because it is used by one or more books. " +
                                             "Reassign those books to a different category first.");

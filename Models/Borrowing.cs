@@ -12,8 +12,6 @@ namespace LibraryManagementSystem.Models
         public DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public string Status { get; set; }   // Active / Returned / Overdue
-
-        // Convenience fields populated by JOIN, useful for grids/history screens
         public string BookTitle { get; set; }
         public string MemberName { get; set; }
         public string StudentId { get; set; }

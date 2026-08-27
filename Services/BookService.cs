@@ -26,7 +26,6 @@ namespace LibraryManagementSystem.Services
             if (_bookRepository.IsbnExists(book.ISBN))
                 throw new ServiceException($"A book with ISBN '{book.ISBN}' already exists.");
 
-            // A brand-new book starts fully available.
             book.AvailableQuantity = book.Quantity;
             book.Status = string.IsNullOrWhiteSpace(book.Status) ? "Active" : book.Status;
             return _bookRepository.Add(book);
@@ -42,9 +41,6 @@ namespace LibraryManagementSystem.Services
             if (existing == null)
                 throw new ServiceException("Book not found.");
 
-            // Keep AvailableQuantity consistent if the librarian changes total Quantity:
-            // shift AvailableQuantity by the same delta, but never let it go negative
-            // or exceed the new total.
             int delta = book.Quantity - existing.Quantity;
             int newAvailable = existing.AvailableQuantity + delta;
             if (newAvailable < 0) newAvailable = 0;
@@ -56,7 +52,6 @@ namespace LibraryManagementSystem.Services
 
         public void DeleteBook(int bookId)
         {
-            // Business rule: cannot delete a book that is currently on loan.
             if (_bookRepository.HasActiveBorrowings(bookId))
                 throw new ServiceException("This book cannot be deleted because it currently has active borrowings.");
             _bookRepository.Delete(bookId);

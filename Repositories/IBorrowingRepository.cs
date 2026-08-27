@@ -5,8 +5,8 @@ namespace LibraryManagementSystem.Repositories
 {
     public class BorrowingFilter
     {
-        public string Keyword { get; set; }   // matches member name / student id / book title
-        public string Status { get; set; }    // Active / Returned / Overdue
+        public string Keyword { get; set; }   
+        public string Status { get; set; }    
     }
 
     public interface IBorrowingRepository
@@ -18,6 +18,6 @@ namespace LibraryManagementSystem.Repositories
         int Add(Borrowing borrowing);
         void MarkReturned(int borrowingId, System.DateTime returnDate);
         void UpdateStatus(int borrowingId, string status);
-        List<Borrowing> GetOverdueActive(); // Active borrowings whose DueDate has passed
+        List<Borrowing> GetOverdueActive(); 
     }
 }

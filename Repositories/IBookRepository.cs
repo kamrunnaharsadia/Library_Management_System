@@ -3,11 +3,9 @@ using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Repositories
 {
-    /// <summary>Simple filter object so BookManagementForm doesn't have to
-    /// build SQL itself - it just fills in whichever fields it needs.</summary>
     public class BookFilter
     {
-        public string Keyword { get; set; }        // matches ISBN / Title / Author
+        public string Keyword { get; set; }     
         public int? CategoryId { get; set; }
         public bool? AvailableOnly { get; set; }
         public string Status { get; set; }
