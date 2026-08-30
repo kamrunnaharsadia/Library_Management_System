@@ -140,5 +140,10 @@ namespace Library_Management_System.Forms
         {
             ClearForm();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
