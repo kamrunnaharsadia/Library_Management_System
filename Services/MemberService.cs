@@ -37,19 +37,34 @@ namespace LibraryManagementSystem.Services
             if (string.IsNullOrWhiteSpace(member.StudentId))
                 throw new ServiceException("Student ID is required.");
 
+            int userId;
+
+            // If username exists, reuse that user’s ID
             if (_userRepository.UsernameExists(user.Username))
-                throw new ServiceException($"Username '{user.Username}' is already taken.");
+            {
+                var existingUser = _userRepository.GetByUsername(user.Username);
+                userId = existingUser.UserId;
+
+                if (_memberRepository.GetByUserId(userId) != null)
+                    throw new ServiceException($"User '{user.Username}' is already registered as a member.");
+            }
+            else
+            {
+                // Otherwise, create a new user
+                user.RoleId = studentRoleId;
+                user.Password = plainPassword;
+                user.Status = "Active";
+                userId = _userRepository.Add(user);
+            }
+
+            // Ensure StudentId is unique in Members
             if (_memberRepository.StudentIdExists(member.StudentId))
                 throw new ServiceException($"Student ID '{member.StudentId}' is already registered.");
 
-            user.RoleId = studentRoleId;
-            user.Password = AuthService.HashPassword(plainPassword);
-            user.Status = "Active";
-            int newUserId = _userRepository.Add(user);
-
-            member.UserId = newUserId;
+            member.UserId = userId;
             return _memberRepository.Add(member);
         }
+
 
         public void UpdateMember(Member member)
         {

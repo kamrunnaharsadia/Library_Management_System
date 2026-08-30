@@ -14,7 +14,7 @@ namespace LibraryManagementSystem.Repositories
             SELECT m.MemberId, m.UserId, m.StudentId, m.Department, m.Semester, m.RegistrationDate,
                    u.FullName, u.Email, u.Phone, u.Status
             FROM Members m
-            INNER JOIN Users u ON u.UserId = m.UserId";
+            Inner JOIN Users u ON u.UserId = m.UserId";
 
         public List<Member> GetAll()
         {
